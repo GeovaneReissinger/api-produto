@@ -1,0 +1,33 @@
+@BaseUrl = http://localhost:8080/produtos
+
+### Listar todos os produtos 
+
+GET {{BaseUrl}}
+
+
+### Listar produto por ID
+GET {{BaseUrl}}/3
+
+### Criar um produto
+
+POST {{BaseUrl}}
+Content-Type: application/json
+
+{
+  "nome": "Monitor Ultrawide",
+  "descricao": "Monitor 29 polegadas, 100Hz, resolução 2560x1080",
+  "preco": 1299.99
+}
+
+### Atualizar produto
+PUT {{BaseUrl}}/3
+Content-Type: application/json
+
+{
+  "nome": "Monitor Ultrawide Atualizado",
+  "descricao": "Monitor  LG 29 polegadas, 144Hz, resolução 2560x1080",
+  "preco": 1199.99
+}
+
+### Deletar produto
+DELETE {{BaseUrl}}/1
