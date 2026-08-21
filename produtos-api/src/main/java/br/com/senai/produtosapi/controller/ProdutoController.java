@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.senai.produtosapi.model.Produto;
 import br.com.senai.produtosapi.service.ProdutoService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/produtos")
@@ -38,13 +39,13 @@ public class ProdutoController {
 
     // POST /produtos -> Cria um produto
     @PostMapping
-    public Produto salvar(@RequestBody Produto produto) {
+    public Produto salvar(@Valid @RequestBody Produto produto) {
         return produtoService.salvar(produto);
     }
 
     // PUT /produtos/{id} -> atualiza um produto existente
     @PutMapping("/{id}")
-    public Produto atualizar(@PathVariable Long id, @RequestBody Produto produto) {
+    public Produto atualizar(@Valid@PathVariable Long id, @RequestBody Produto produto) {
         return produtoService.atualizar(id, produto);
     }
 

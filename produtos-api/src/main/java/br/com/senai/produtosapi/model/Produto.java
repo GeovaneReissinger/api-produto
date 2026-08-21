@@ -10,6 +10,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name = "produto")
@@ -20,9 +23,17 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @NotBlank (message = "O nome do produto é obrigatório.")
     private String nome;
+
+
+
+
     private String descricao;
+
+
+    @NotNull(message = "O preço do produto é obrigatório.")
+    @Positive(message = "O preço do produto deve ser maior que zero.")
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal preco;
     private LocalDate dataCadastro;

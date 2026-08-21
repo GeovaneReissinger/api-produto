@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.com.senai.produtosapi.exception.ProdutoNotFoundException;
 import br.com.senai.produtosapi.model.Produto;
 import br.com.senai.produtosapi.repository.ProdutoRepository;
 
@@ -23,7 +24,7 @@ public class ProdutoService {
     // Retorna um produto pelo id
     public Produto buscarPorId(Long id){
         return produtoRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Produto não encontrado com id: " + id));
+            .orElseThrow(() -> new ProdutoNotFoundException(id));
     }
 
     //Cria um novo produto
