@@ -1,33 +1,39 @@
-@BaseUrl = http://localhost:8080/produtos
+@baseURL = http://localhost:8081
 
-### Listar todos os produtos 
-
-GET {{BaseUrl}}
-
-
-### Listar produto por ID
-GET {{BaseUrl}}/999
-
-### Criar um produto
-
-POST {{BaseUrl}}
+### Criar Categoria
+POST {{baseURL}}/categorias
 Content-Type: application/json
 
 {
-  "nome": "Produto Qualquer",
-  "descricao": "Monitor 29 polegadas, 100Hz, resolução 2560x1080",
-  "preco": 1299.99
+    "nome": "Informática"
 }
 
-### Atualizar produto
-PUT {{BaseUrl}}/3
+### Listar categorias
+GET {{baseURL}}/categorias
+
+
+### Criar produtos vinculados à categoria
+POST {{baseURL}}/produtos
 Content-Type: application/json
 
 {
-  "nome": "Monitor Ultrawide Atualizado",
-  "descricao": "Monitor  LG 29 polegadas, 144Hz, resolução 2560x1080",
-  "preco": 1199.99
+    "nome": "Notebook",
+    "descricao": "Notebook DELL",
+    "preco": 3500.0,
+    "categoria": {"id": 1}
+
 }
 
-### Deletar produto
-DELETE {{BaseUrl}}/1
+### Buscar produtos por categoria
+GET {{baseURL}}/produtos/categoria/1
+
+### Buscar produtos por faixa de preço
+GET {{baseURL}}/produtos/faixa-preco?min=50&max=200
+
+
+### Apagar produto
+DELETE {{baseURL}}/produtos/9
+
+
+
+

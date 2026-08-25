@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -23,20 +25,22 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank (message = "O nome do produto é obrigatório.")
+    @NotBlank(message = "O nome é obrigatório.")
+    @Column(nullable = false)
     private String nome;
-
-
-
 
     private String descricao;
 
-
-    @NotNull(message = "O preço do produto é obrigatório.")
-    @Positive(message = "O preço do produto deve ser maior que zero.")
+    @NotNull(message = "O preço é obrigatório.")
+    @Positive(message = "O preço deve ser maior que zero.")
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal preco;
     private LocalDate dataCadastro;
+
+    @NotNull(message = "A categoria é obrigatória.")
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private Categoria categoria;
 
     public Long getId() {
         return id;
@@ -76,6 +80,14 @@ public class Produto {
 
     public void setDataCadastro(LocalDate dataCadastro) {
         this.dataCadastro = dataCadastro;
+    }
+
+    public Categoria getCategoria(){
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria){
+        this.categoria = categoria;
     }
 
     @PrePersist

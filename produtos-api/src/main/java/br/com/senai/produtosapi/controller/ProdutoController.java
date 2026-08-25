@@ -1,5 +1,6 @@
 package br.com.senai.produtosapi.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.senai.produtosapi.model.Produto;
@@ -45,15 +47,27 @@ public class ProdutoController {
 
     // PUT /produtos/{id} -> atualiza um produto existente
     @PutMapping("/{id}")
-    public Produto atualizar(@Valid@PathVariable Long id, @RequestBody Produto produto) {
+    public Produto atualizar(@PathVariable Long id, @Valid @RequestBody Produto produto) {
         return produtoService.atualizar(id, produto);
     }
 
-    //DELETE /produtos/{id} -> Remove um produto pelo id
+    // DELETE /produtos/{id} -> Remove um produto pelo id
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id){
+    public void deletar(@PathVariable Long id) {
         produtoService.deletar(id);
-    } 
+    }
 
+    
+    @GetMapping("/categoria/{categoriaId}")
+    public List<Produto> buscarPorCategoria(@PathVariable Long categoriaId) {
+        return produtoService.buscarPorCategoria(categoriaId);
+    }
+
+    @GetMapping("/faixa-preco")
+    public List<Produto> buscarPorFaixaDePreco(
+            @RequestParam BigDecimal min,
+            @RequestParam BigDecimal max) {
+        return produtoService.buscarPorFaixaDePreco(min, max);
+    }
 
 }

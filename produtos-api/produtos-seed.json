@@ -1,0 +1,21 @@
+{
+  "categorias": [
+    { "nome": "Informática" },
+    { "nome": "Esportes" },
+    { "nome": "Vestuário" }
+  ],
+  "produtos": [
+    { "nome": "Notebook Dell", "descricao": "Notebook Dell 15' i7 16GB RAM 1TB", "preco": 6999.90, "categoria": "Informática" },
+    { "nome": "Mouse Gamer", "descricao": "Mouse óptico 16000 DPI, 6 botões programáveis", "preco": 159.90, "categoria": "Informática" },
+    { "nome": "Teclado Mecânico", "descricao": "Teclado mecânico RGB, switch blue", "preco": 249.90, "categoria": "Informática" },
+    { "nome": "Monitor Ultrawide", "descricao": "Monitor 29 polegadas, 100Hz, resolução 2560x1080", "preco": 1299.90, "categoria": "Informática" },
+    { "nome": "Bola de Futebol", "descricao": "Bola oficial tamanho 5, uso profissional", "preco": 129.90, "categoria": "Esportes" },
+    { "nome": "Bicicleta Speed", "descricao": "Bicicleta speed aro 700, 21 marchas", "preco": 2499.90, "categoria": "Esportes" },
+    { "nome": "Corda de Pular", "descricao": "Corda de pular com rolamento, ajustável", "preco": 39.90, "categoria": "Esportes" },
+    { "nome": "Halteres 5kg (par)", "descricao": "Par de halteres emborrachados de 5kg", "preco": 149.90, "categoria": "Esportes" },
+    { "nome": "Camiseta Dry-Fit", "descricao": "Camiseta esportiva tecido dry-fit, tamanho M", "preco": 69.90, "categoria": "Vestuário" },
+    { "nome": "Jaqueta Corta-Vento", "descricao": "Jaqueta corta-vento impermeável, tamanho G", "preco": 199.90, "categoria": "Vestuário" },
+    { "nome": "Tênis de Corrida", "descricao": "Tênis de corrida com amortecimento, tamanho 42", "preco": 349.90, "categoria": "Vestuário" },
+    { "nome": "Boné Esportivo", "descricao": "Boné ajustável em tecido respirável", "preco": 49.90, "categoria": "Vestuário" }
+  ]
+}
