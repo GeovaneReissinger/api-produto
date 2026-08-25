@@ -1,0 +1,1 @@
+próximos passos pós curso: front end, redes, engenharia/arquitetura de software, cursos amazona(aws, lambda, servless,kafka)
