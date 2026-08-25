@@ -1,5 +1,6 @@
 package br.com.senai.produtosapi.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +18,7 @@ public class Categoria {
     private Long id;
 
     @NotBlank(message = "O nome da categoria é obrigatório.")
+    @Column(nullable = false)
     private String nome;
 
     public Long getId() {

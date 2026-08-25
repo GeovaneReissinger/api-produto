@@ -5,34 +5,32 @@ POST {{baseURL}}/categorias
 Content-Type: application/json
 
 {
-    "nome": "Informática"
+    "nome": "Automóveis"
 }
 
 ### Listar categorias
 GET {{baseURL}}/categorias
-
 
 ### Criar produtos vinculados à categoria
 POST {{baseURL}}/produtos
 Content-Type: application/json
 
 {
-    "nome": "Notebook",
-    "descricao": "Notebook DELL",
-    "preco": 3500.0,
-    "categoria": {"id": 1}
+    "nome": "Cera Automativa",
+    "descricao": "Cera para lataria de veículos",
+    "preco": 20.0,
+    "categoria": {"id": 2}
 
 }
 
 ### Buscar produtos por categoria
-GET {{baseURL}}/produtos/categoria/1
+GET {{baseURL}}/produtos/categoria/2
 
 ### Buscar produtos por faixa de preço
-GET {{baseURL}}/produtos/faixa-preco?min=50&max=200
+GET {{baseURL}}/produtos/faixa-preco?min=0&max=50
 
-
-### Apagar produto
-DELETE {{baseURL}}/produtos/9
+###Apagar produtos
+DELETE {{baseURL}}/produtos/3
 
 
 
