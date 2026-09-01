@@ -1,36 +1,61 @@
 @baseURL = http://localhost:8081
 
-### Criar Categoria
-POST {{baseURL}}/categorias
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJHZW92YW5lIiwiaWF0IjoxNzg4MjE4NzU0LCJleHAiOjE3ODgyMjIzNTR9.j7VMkp5fFXiOw27zsDeo5thB3PG0p-nLzkqAUUZPxCA
+
+# @name login
+### Login
+POST {{baseURL}}/login
 Content-Type: application/json
 
 {
-    "nome": "Automóveis"
+  "username": "Geovane",
+  "password": "senha123"
 }
+
+
 
 ### Listar categorias
 GET {{baseURL}}/categorias
+Authorization: Bearer {{token}}
 
 ### Criar produtos vinculados à categoria
 POST {{baseURL}}/produtos
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
-{
-    "nome": "Cera Automativa",
-    "descricao": "Cera para lataria de veículos",
-    "preco": 20.0,
-    "categoria": {"id": 2}
 
+{ "nome": "Apple Macbook",
+  "descricao": "Macbook M3 16GB RAM 512GB",
+  "preco": 9999.90, 
+  "categoria": {"id": 1} 
 }
 
-### Buscar produtos por categoria
-GET {{baseURL}}/produtos/categoria/2
+### Criar produto bicicleta vinculado à categoria
+POST {{baseURL}}/produtos
+Authorization: Bearer {{token}}
+Content-Type: application/json
 
-### Buscar produtos por faixa de preço
-GET {{baseURL}}/produtos/faixa-preco?min=0&max=50
+{  "nome": "Bicicleta Speed", 
+   "descricao": "Bicicleta speed aro 700, 21 marchas",
+   "preco": 2499.90, 
+   "categoria": {"id": 2}
+}
 
-###Apagar produtos
-DELETE {{baseURL}}/produtos/3
+### Upload de imagem do produto
+POST {{baseURL}}/produtos/1/imagem
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=----boundary
+
+------boundary
+Content-Disposition: form-data; name="arquivo"; filename="bicicleta-speed.jpg"
+Content-Type: image/jpeg
+
+< ./test-files/bicicleta-speed.jpg
+------boundary--
+
+### Download de imagem do produto
+GET {{baseURL}}/produtos/2/imagem
+Authorization: Bearer {{token}}
 
 
 

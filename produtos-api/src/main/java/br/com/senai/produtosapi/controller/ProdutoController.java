@@ -1,8 +1,17 @@
 package br.com.senai.produtosapi.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
+import org.springframework.http.MediaType;
+import org.springframework.http.MediaTypeFactory;
+
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +22,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.senai.produtosapi.model.Produto;
+import br.com.senai.produtosapi.service.FileStorageService;
 import br.com.senai.produtosapi.service.ProdutoService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -29,9 +41,11 @@ import jakarta.validation.Valid;
 public class ProdutoController {
 
     private final ProdutoService produtoService;
+    private final FileStorageService fileStorageService;
 
-    public ProdutoController(ProdutoService produtoService) {
+    public ProdutoController(ProdutoService produtoService, FileStorageService fileStorageService) {
         this.produtoService = produtoService;
+        this.fileStorageService = fileStorageService;
     }
 
     // GET /produtos -> lista todos os produtos cadastrados
@@ -119,5 +133,44 @@ public class ProdutoController {
             @Parameter(description = "Preço máximo") @RequestParam BigDecimal max) {
         return produtoService.buscarPorFaixaDePreco(min, max);
     }
+
+
+
+    // Upload e Download de imagem
+
+    @Operation(summary = "Enviar a imagem de um produto")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Imagem enviada e associada ao produto com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Produto não encontrado")
+    })
+    @PostMapping("/{id}/imagem")
+    public Produto uploadImagem(
+        @Parameter(description = "Id do produto") @PathVariable Long id,
+        @Parameter(description = "Arquivo de imagem") 
+        @RequestParam("arquivo") MultipartFile arquivo) throws IOException{
+            
+            String nomeArquivo = fileStorageService.salvar(arquivo);
+            return produtoService.atualizarImagem(id, nomeArquivo);            
+        }
+
+
+    @Operation(summary = "Baixar a imagem de um produto")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Imagem retornada com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Produto não encontrado")
+    })  
+    @GetMapping("/{id}/imagem")
+    public ResponseEntity<Resource> baixarImagem(
+        @Parameter(description = "Id do produto") @PathVariable Long id) throws IOException{
+            Produto produto = produtoService.buscarPorId(id);
+            Path caminho = Paths.get("uploads").resolve(produto.getImagem());
+
+            Resource recurso = new UrlResource(caminho.toUri());
+            MediaType tipoconteudo = MediaTypeFactory.getMediaType(recurso)
+            .orElse(MediaType.APPLICATION_OCTET_STREAM);
+            return ResponseEntity.ok()
+            .contentType(tipoconteudo)
+            .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + recurso.getFilename() + "\"").body(recurso);
+        }
 
 }

@@ -53,4 +53,10 @@ public class ProdutoService {
         return produtoRepository.buscarPorFaixaDePreco(min, max);
 
     }
+
+    public Produto atualizarImagem(Long id, String nomeArquivo){
+        Produto produto = buscarPorId(id);
+        produto.setImagem(nomeArquivo);
+        return produtoRepository.save(produto);
+    }
 }

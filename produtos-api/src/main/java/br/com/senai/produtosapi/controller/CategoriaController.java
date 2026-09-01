@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.senai.produtosapi.exception.CategoriaNotFoundException;
 import br.com.senai.produtosapi.model.Categoria;
 import br.com.senai.produtosapi.service.CategoriaService;
 import io.swagger.v3.oas.annotations.Operation;

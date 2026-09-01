@@ -42,6 +42,9 @@ public class Produto {
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 
+    private String imagem;
+    
+
     public Long getId() {
         return id;
     }
@@ -88,6 +91,14 @@ public class Produto {
 
     public void setCategoria(Categoria categoria){
         this.categoria = categoria;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 
     @PrePersist
