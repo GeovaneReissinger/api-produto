@@ -1,0 +1,161 @@
+/* Estilos da tela de login (login.html): mesmo tema escuro do cadastro,
+   aplicado a um único card de formulário centralizado na página. */
+
+:root {
+    --bg: #070b14;
+    --surface: rgba(15, 23, 42, 0.86);
+    --surface-soft: rgba(30, 41, 59, 0.76);
+    --text: #eef4ff;
+    --muted: #aab7cf;
+    --border: rgba(148, 163, 184, 0.24);
+    --primary: #38bdf8;
+    --primary-dark: #7c3aed;
+    --accent: #5eead4;
+    --danger: #fca5a5;
+    --shadow: 0 22px 60px rgba(0, 0, 0, 0.46);
+    --radius: 8px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    color: var(--text);
+    font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.3), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(124, 58, 237, 0.34), transparent 36%),
+        linear-gradient(135deg, #050816 0%, #101827 45%, #1b1231 100%),
+        var(--bg);
+    background-attachment: fixed;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+.login-container {
+    display: grid;
+    min-height: 100vh;
+    place-items: center;
+    padding: 28px;
+}
+
+.login-card {
+    width: min(100%, 420px);
+    padding: 30px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
+}
+
+h1 {
+    margin: 0;
+    color: #f8fbff;
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1.05;
+    text-align: center;
+}
+
+h2 {
+    margin: 10px 0 24px;
+    color: var(--muted);
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.campo {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    margin-bottom: 7px;
+    color: #d6e1f5;
+    font-size: 0.92rem;
+    font-weight: 700;
+}
+
+input {
+    width: 100%;
+    height: 46px;
+    padding: 0 13px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-soft);
+    color: var(--text);
+    font-size: 1rem;
+    outline: none;
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        background-color 180ms ease;
+}
+
+input::placeholder {
+    color: #7f8ca3;
+}
+
+input:focus {
+    border-color: var(--primary);
+    background: rgba(15, 23, 42, 0.96);
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.16);
+}
+
+button {
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 12px 28px rgba(56, 189, 248, 0.22);
+    transition:
+        transform 180ms ease,
+        box-shadow 180ms ease,
+        filter 180ms ease;
+}
+
+button:hover {
+    box-shadow: 0 16px 34px rgba(124, 58, 237, 0.3);
+    filter: brightness(1.03);
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#mensagemLogin {
+    min-height: 22px;
+    margin: 16px 0 0;
+    color: var(--accent);
+    font-weight: 800;
+    text-align: center;
+}
+
+@media (max-width: 460px) {
+    .login-container {
+        padding: 18px;
+    }
+
+    .login-card {
+        padding: 24px 20px;
+    }
+}

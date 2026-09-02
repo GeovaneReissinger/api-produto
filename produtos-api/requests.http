@@ -1,10 +1,13 @@
-@baseURL = http://localhost:8081
+### produtos-api — requisições de teste (REST Client)
+### Pré-requisito: aplicação rodando via ./mvnw spring-boot:run
 
-@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJHZW92YW5lIiwiaWF0IjoxNzg4MjE4NzU0LCJleHAiOjE3ODgyMjIzNTR9.j7VMkp5fFXiOw27zsDeo5thB3PG0p-nLzkqAUUZPxCA
+@baseUrl = http://localhost:8080
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXVsbyIsImlhdCI6MTc4ODI3NjYxNCwiZXhwIjoxNzg4MjgwMjE0fQ.2bMVwQVS2bKUp09UGsxgFBdqtChDTt8YZoXEVBMtsP8
+### 1. Sem token — deve retornar 401 Unauthorized
+GET {{baseUrl}}/produtos
 
-# @name login
-### Login
-POST {{baseURL}}/login
+### 2. Login — retorna o token JWT no corpo da resposta
+POST {{baseUrl}}/login
 Content-Type: application/json
 
 {
@@ -12,51 +15,34 @@ Content-Type: application/json
   "password": "senha123"
 }
 
-
-
-### Listar categorias
-GET {{baseURL}}/categorias
+### 3. Com token — copie o token retornado no passo 2 e cole abaixo
+GET {{baseUrl}}/produtos
 Authorization: Bearer {{token}}
 
-### Criar produtos vinculados à categoria
-POST {{baseURL}}/produtos
-Authorization: Bearer {{token}}
-Content-Type: application/json
 
-
-{ "nome": "Apple Macbook",
-  "descricao": "Macbook M3 16GB RAM 512GB",
-  "preco": 9999.90, 
-  "categoria": {"id": 1} 
-}
-
-### Criar produto bicicleta vinculado à categoria
-POST {{baseURL}}/produtos
+### 4. Criar produto bicicleta vinculado à categoria
+POST {{baseUrl}}/produtos
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {  "nome": "Bicicleta Speed", 
    "descricao": "Bicicleta speed aro 700, 21 marchas",
-   "preco": 2499.90, 
+   "preco": 5999.90, 
    "categoria": {"id": 2}
 }
 
-### Upload de imagem do produto
-POST {{baseURL}}/produtos/1/imagem
+### 5. Upload da imagem (multipart) — troque o caminho do arquivo
+POST {{baseUrl}}/produtos/1/imagem
 Authorization: Bearer {{token}}
-Content-Type: multipart/form-data; boundary=----boundary
+Content-Type: multipart/form-data; boundary=WebAppBoundary
 
-------boundary
-Content-Disposition: form-data; name="arquivo"; filename="bicicleta-speed.jpg"
+--WebAppBoundary
+Content-Disposition: form-data; name="arquivo"; filename="tenis.jpg"
 Content-Type: image/jpeg
 
-< ./test-files/bicicleta-speed.jpg
-------boundary--
+< ./test-files/tenis.jpg
+--WebAppBoundary--
 
-### Download de imagem do produto
-GET {{baseURL}}/produtos/2/imagem
+### 6. Download da imagem
+GET {{baseUrl}}/produtos/1/imagem
 Authorization: Bearer {{token}}
-
-
-
-

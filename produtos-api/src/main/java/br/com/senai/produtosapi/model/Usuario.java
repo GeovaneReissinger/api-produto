@@ -3,7 +3,6 @@ package br.com.senai.produtosapi.model;
 import java.util.Collection;
 import java.util.List;
 
-import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,9 +14,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * Entidade JPA que representa um usuário do sistema, mapeada para a tabela "usuario".
+ * Implementa {@link UserDetails} para que o Spring Security consiga usá-la
+ * diretamente no processo de autenticação (login e validação do JWT).
+ */
 @Entity
 @Table(name = "usuario")
-
 public class Usuario implements UserDetails {
 
     @Id
@@ -43,7 +46,6 @@ public class Usuario implements UserDetails {
     public void setUsername(String username) {
         this.username = username;
     }
-   
 
     public void setPassword(String password) {
         this.password = password;
@@ -57,46 +59,40 @@ public class Usuario implements UserDetails {
         this.role = role;
     }
 
-     @Override
+    // --- Métodos exigidos pela interface UserDetails ---
+
+    @Override
     public String getUsername() {
-        
         return username;
     }
 
     @Override
-    public @Nullable String getPassword() {
-        
+    public String getPassword() {
         return password;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-       
         return List.of(new SimpleGrantedAuthority("ROLE_" + role));
-    } 
+    }
 
     @Override
     public boolean isAccountNonExpired() {
-       
         return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        
         return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        
         return true;
     }
 
     @Override
     public boolean isEnabled() {
-        
         return true;
-    }     
-    
+    }
 }

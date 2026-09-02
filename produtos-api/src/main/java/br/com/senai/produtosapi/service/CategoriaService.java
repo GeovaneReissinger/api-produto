@@ -8,6 +8,7 @@ import br.com.senai.produtosapi.exception.CategoriaNotFoundException;
 import br.com.senai.produtosapi.model.Categoria;
 import br.com.senai.produtosapi.repository.CategoriaRepository;
 
+/** Regras de negócio de categoria: CRUD, lançando {@link CategoriaNotFoundException} quando o id não existe. */
 @Service
 public class CategoriaService {
 
@@ -21,24 +22,23 @@ public class CategoriaService {
         return categoriaRepository.findAll();
     }
 
-    public Categoria buscarPorId(Long id){
+    public Categoria buscarPorId(Long id) {
         return categoriaRepository.findById(id)
-        .orElseThrow(() -> new CategoriaNotFoundException(id));
+                .orElseThrow(() -> new CategoriaNotFoundException(id));
     }
 
-    public Categoria salvar(Categoria categoria){
+    public Categoria salvar(Categoria categoria) {
         return categoriaRepository.save(categoria);
     }
 
-    public Categoria atualizar(Long id, Categoria categoriaAtualizada){
+    public Categoria atualizar(Long id, Categoria categoriaAtualizada) {
         Categoria categoria = buscarPorId(id);
         categoria.setNome(categoriaAtualizada.getNome());
         return categoriaRepository.save(categoria);
     }
 
-    public void deletar(Long id){
+    public void deletar(Long id) {
         buscarPorId(id);
         categoriaRepository.deleteById(id);
     }
-
 }

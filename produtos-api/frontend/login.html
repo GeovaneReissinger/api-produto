@@ -1,0 +1,67 @@
+<!--
+    Tela de login do frontend: formulário de usuário/senha que autentica na
+    API (POST /login) e guarda o token JWT recebido para acessar cadastro.html.
+    Lógica em js/scriptLogin.js.
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | API de Produtos</title>
+
+    <link rel="stylesheet" href="css/styleLogin.css">
+</head>
+
+<body>
+
+    <main class="login-container">
+
+        <section class="login-card">
+
+            <h1>API de Produtos</h1>
+            <h2>Login</h2>
+
+            <form id="formLogin">
+
+                <div class="campo">
+                    <label for="username">Usuário</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Digite seu usuário"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="password">Senha</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit">Entrar</button>
+
+            </form>
+
+            <p id="mensagemLogin"></p>
+
+        </section>
+
+    </main>
+
+    <script src="js/scriptLogin.js"></script>
+
+</body>
+
+</html>

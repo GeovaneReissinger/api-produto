@@ -15,10 +15,15 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
+/**
+ * Entidade JPA que representa um produto, mapeada para a tabela "produto".
+ * Cada produto pertence a uma {@link Categoria} e pode ter uma imagem associada
+ * (apenas o nome do arquivo fica salvo aqui; o conteúdo fica na pasta uploads).
+ */
 @Entity
 @Table(name = "produto")
-
 public class Produto {
 
     @Id
@@ -26,15 +31,19 @@ public class Produto {
     private Long id;
 
     @NotBlank(message = "O nome é obrigatório.")
-    @Column(nullable = false)
+    @Size(max = 150, message = "O nome deve ter no máximo 150 caracteres.")
+    @Column(nullable = false, length = 150)
     private String nome;
 
+    @Size(max = 1000, message = "A descrição deve ter no máximo 1000 caracteres.")
+    @Column(length = 1000)
     private String descricao;
 
     @NotNull(message = "O preço é obrigatório.")
     @Positive(message = "O preço deve ser maior que zero.")
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal preco;
+
     private LocalDate dataCadastro;
 
     @NotNull(message = "A categoria é obrigatória.")
@@ -42,8 +51,9 @@ public class Produto {
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 
+    // Guarda só o nome do arquivo (ex: "a1b2c3_notebook.jpg").
+    // A imagem em si fica salva na pasta uploads, fora do banco.
     private String imagem;
-    
 
     public Long getId() {
         return id;
@@ -85,11 +95,11 @@ public class Produto {
         this.dataCadastro = dataCadastro;
     }
 
-    public Categoria getCategoria(){
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria){
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
@@ -107,5 +117,4 @@ public class Produto {
             dataCadastro = LocalDate.now();
         }
     }
-
 }

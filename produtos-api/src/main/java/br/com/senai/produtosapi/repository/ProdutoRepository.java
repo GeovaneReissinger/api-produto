@@ -9,6 +9,10 @@ import org.springframework.data.repository.query.Param;
 
 import br.com.senai.produtosapi.model.Produto;
 
+/**
+ * Acesso a dados de {@link Produto}. Além do CRUD herdado de {@link JpaRepository},
+ * define consultas JPQL customizadas para buscar por categoria e por faixa de preço.
+ */
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
     @Query("""
@@ -24,7 +28,6 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
             WHERE p.preco BETWEEN :min AND :max
             """)
     List<Produto> buscarPorFaixaDePreco(
-        @Param("min") BigDecimal min,
-        @Param("max") BigDecimal max);
-    
+            @Param("min") BigDecimal min,
+            @Param("max") BigDecimal max);
 }
